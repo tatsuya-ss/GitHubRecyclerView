@@ -24,7 +24,7 @@ class GitHubRepositoryImpl(private val dataStore: GitHubDataStore = GitHubDataSt
 
 }
 
-fun GitHubRepositoryImpl.convert(results: List<GitHub>): List<GitHubEntity> {
+private fun GitHubRepositoryImpl.convert(results: List<GitHub>): List<GitHubEntity> {
     return results.map {
         GitHubEntity(it.full_name)
     }

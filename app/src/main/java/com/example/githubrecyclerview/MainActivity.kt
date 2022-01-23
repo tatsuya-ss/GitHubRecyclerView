@@ -40,25 +40,25 @@ class MainActivity(private val gitHubUseCase: GitHubUseCase = GitHubUseCaseImpl(
     private fun setupButton() {
         binding.fetchButton.setOnClickListener {
             GlobalScope.launch {
-
                 withContext(Dispatchers.IO) {
                     val result = gitHubUseCase.fetch()
-
                     when(result) {
                         null -> println("null")
                         else -> {
                             githubData = result
-                            withContext(Dispatchers.Main) {
-                                println(githubData)
-                                val adapder = recyclerView.adapter as RecyclerViewAdapder
-                                adapder.updateList(githubData)
-                                adapder.notifyDataSetChanged()
-                            }
+                            reloadRecyclerView()
                         }
                     }
-
                 }
             }
+        }
+    }
+
+    private suspend fun reloadRecyclerView() {
+        withContext(Dispatchers.Main) {
+            val adapder = recyclerView.adapter as RecyclerViewAdapder
+            adapder.updateList(githubData)
+            adapder.notifyDataSetChanged()
         }
     }
 
