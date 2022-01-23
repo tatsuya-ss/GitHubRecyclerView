@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewAdapder(private val list: List<String>): RecyclerView.Adapter<RecyclerViewAdapder.ViewHolder>() {
+class RecyclerViewAdapder(var list: List<GitHubDataStore>): RecyclerView.Adapter<RecyclerViewAdapder.ViewHolder>() {
 
     class ViewHolder(cell: View): RecyclerView.ViewHolder(cell) {
         val textView: TextView = cell.findViewById(R.id.textView)
@@ -19,11 +19,15 @@ class RecyclerViewAdapder(private val list: List<String>): RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = list[position]
+        holder.textView.text = list[position].full_name
     }
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    fun updateList(list: List<GitHubDataStore>) {
+        this.list = list
     }
 
 }
